@@ -28,22 +28,29 @@ export function usePublicMenu() {
   return useQuery({
     queryKey: [api.publicMenu.get.path],
     queryFn: async () => {
+      // Prioritize static menu-data.json for Netlify/Static deployments
+      try {
+        const res = await fetch("/menu-data.json");
+        if (res.ok) {
+          const json = await res.json();
+          // Check if it's actual JSON and not an HTML error page (common in SPAs)
+          if (json && typeof json === 'object') {
+            return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get (static)");
+          }
+        }
+      } catch (staticErr) {
+        console.warn("Static menu-data.json fetch failed, trying API...", staticErr);
+      }
+
+      // Fallback to API
       try {
         const res = await fetch(api.publicMenu.get.path, { credentials: "include" });
         if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
         const json = await res.json();
-        return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get");
+        return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get (api)");
       } catch (err) {
-        console.warn("API failed, falling back to static menu-data.json", err);
-        try {
-          const res = await fetch("/menu-data.json");
-          if (!res.ok) throw new Error(`Fallback responded with status: ${res.status}`);
-          const json = await res.json();
-          return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get");
-        } catch (fallbackErr) {
-          console.error("Critical: Fallback also failed", fallbackErr);
-          throw fallbackErr;
-        }
+        console.error("Critical: Both static fallback and API failed", err);
+        throw err;
       }
     },
   });
