@@ -15,6 +15,7 @@ import { MenuItemRow } from "@/components/MenuItemRow";
 import { OrnamentReferenceImage } from "@/components/OrnamentReferenceImage";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoPng from "@assets/Captura_de_ecrã_2026-02-12_190852_1770925181463.png";
 
 function formatPhone(raw?: string | null) {
   if (!raw) return null;
@@ -59,7 +60,7 @@ export default function PublicMenuPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
           {/* Header */}
           <header className="animate-float-in">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3 py-1.5 shadow-sm backdrop-blur">
                   <RiHeartFill className="h-4 w-4 text-primary" />
@@ -83,24 +84,43 @@ export default function PublicMenuPage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 md:justify-end">
-                <QrCodeDialog url={url} />
-
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    const el = document.querySelector("#reserva");
-                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className="rounded-2xl px-5 py-3 font-semibold hover:-translate-y-0.5 transition-all duration-300"
-                  data-testid="btn-scroll-reserva"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <RiArrowDownLine className="h-4 w-4" />
-                    Fazer reserva
+              <a 
+                href="/menu-namorados.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative block w-full max-w-[180px] overflow-hidden rounded-2xl border border-card-border/70 bg-card shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-primary/20"
+                data-testid="link-menu-pdf"
+              >
+                <img 
+                  src={logoPng} 
+                  alt="Menu Dia dos Namorados" 
+                  className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                    Ver PDF
                   </span>
-                </Button>
-              </div>
+                </div>
+              </a>
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 md:justify-end">
+              <QrCodeDialog url={url} />
+
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  const el = document.querySelector("#reserva");
+                  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="rounded-2xl px-5 py-3 font-semibold hover:-translate-y-0.5 transition-all duration-300"
+                data-testid="btn-scroll-reserva"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <RiArrowDownLine className="h-4 w-4" />
+                  Fazer reserva
+                </span>
+              </Button>
             </div>
           </header>
 
