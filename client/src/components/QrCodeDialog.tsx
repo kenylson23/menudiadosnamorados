@@ -62,37 +62,37 @@ export function QrCodeDialog({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-3xl border-card-border/70 bg-card p-0 shadow-2xl overflow-hidden">
-        <div className="p-4 sm:p-6">
+      <DialogContent className="max-w-[95vw] sm:max-w-lg rounded-3xl border-card-border/70 bg-card p-0 shadow-2xl overflow-hidden">
+        <div className="p-4 sm:p-8">
           <DialogHeader className="px-2">
-            <DialogTitle className="font-display text-xl sm:text-2xl">QR Code Personalizado</DialogTitle>
+            <DialogTitle className="font-display text-xl sm:text-2xl text-center">QR Code Personalizado</DialogTitle>
           </DialogHeader>
 
-          <div className="mt-4 flex flex-col gap-4">
-            <div className="glass rounded-3xl p-4 shadow-md bg-white/50 backdrop-blur-sm border border-white/20">
-              <div className="flex flex-col gap-1.5 px-1">
+          <div className="mt-6 flex flex-col gap-6">
+            <div className="glass rounded-3xl p-6 shadow-md bg-white/50 backdrop-blur-sm border border-white/20">
+              <div className="flex flex-col gap-2 px-1">
                 <p className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground/60">Destino</p>
                 <div className="flex items-center gap-2">
-                  <p className="flex-1 truncate text-xs font-medium text-foreground bg-white/50 px-2 py-1 rounded-lg border border-border/50" data-testid="qr-url">
+                  <p className="flex-1 truncate text-xs font-medium text-foreground bg-white/60 px-3 py-2 rounded-xl border border-border/40" data-testid="qr-url">
                     {url}
                   </p>
                   <Button
                     variant="secondary"
                     size="sm"
-                    className="rounded-lg h-7 px-2 shrink-0"
+                    className="rounded-xl h-9 px-3 shrink-0"
                     onClick={onCopy}
                     data-testid="btn-copy-link"
                   >
-                    <RiLink className="h-3.5 w-3.5" />
+                    <RiLink className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
-              <div className="mt-4 flex justify-center">
-                <div className="relative p-3 bg-white rounded-[2rem] shadow-lg border border-border/40 w-full max-w-[220px] aspect-square flex items-center justify-center" ref={canvasRef}>
+              <div className="mt-6 flex justify-center">
+                <div className="relative p-4 bg-white rounded-[2.5rem] shadow-xl border border-border/30 w-full max-w-[260px] aspect-square flex items-center justify-center" ref={canvasRef}>
                   <QRCodeCanvas
                     value={url}
-                    size={256}
+                    size={512}
                     style={{ width: '100%', height: '100%' }}
                     level="H"
                     includeMargin={false}
@@ -100,29 +100,29 @@ export function QrCodeDialog({
                       src: logoImg,
                       x: undefined,
                       y: undefined,
-                      height: 48,
-                      width: 48,
+                      height: 56,
+                      width: 56,
                       excavate: true,
                     }}
                   />
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-8">
                 <Button
-                  className="w-full rounded-2xl h-11 font-bold bg-primary hover:bg-primary/90 text-sm"
+                  className="w-full rounded-2xl h-12 font-bold bg-primary hover:bg-primary/90 text-base shadow-lg shadow-primary/20"
                   onClick={onDownload}
                   data-testid="btn-download-qr"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <RiDownload2Fill className="h-4 w-4" />
+                    <RiDownload2Fill className="h-5 w-5" />
                     Baixar QR Code
                   </span>
                 </Button>
               </div>
             </div>
 
-            <p className="text-center text-[10px] sm:text-[11px] leading-relaxed text-muted-foreground px-2">
+            <p className="text-center text-[11px] sm:text-xs leading-relaxed text-muted-foreground px-4">
               Aponte a câmara para aceder ao menu digital do <span className="font-bold text-foreground">Las Tortillas</span>.
             </p>
           </div>
