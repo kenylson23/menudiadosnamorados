@@ -1,5 +1,5 @@
 import * as React from "react";
-import referenceImg from "@assets/Captura_de_ecrã_2026-02-12_190852_1770919849107.png";
+import logoImg from "@assets/363504994_941309393603468_1368326213525914887_n_1770920551378.jpg";
 
 export function OrnamentReferenceImage() {
   return (
@@ -11,12 +11,12 @@ export function OrnamentReferenceImage() {
         <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
       </div>
-      <div className="relative p-3 sm:p-4">
+      <div className="relative p-6 sm:p-8 flex items-center justify-center">
         <img
-          src={referenceImg}
-          alt="Referência visual do menu"
-          className="h-auto w-full rounded-2xl border border-border/60 shadow-sm"
-          data-testid="reference-image"
+          src={logoImg}
+          alt="Logotipo Las Tortillas"
+          className="h-auto w-full max-w-[240px] transition-transform duration-500 hover:scale-105"
+          data-testid="restaurant-logo"
         />
       </div>
     </div>
