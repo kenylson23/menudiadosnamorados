@@ -71,16 +71,16 @@ export default function PublicMenuPage() {
 
                 <h1
                   className={cn(
-                    "mt-4 font-display text-4xl sm:text-5xl md:text-6xl leading-[1.02]",
-                    "text-foreground",
+                    "mt-6 font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight",
+                    "bg-gradient-to-br from-foreground via-foreground to-primary/60 bg-clip-text text-transparent",
                   )}
                   data-testid="menu-title"
                 >
                   {menuTitle}
                 </h1>
 
-                <p className="mt-3 text-sm sm:text-base text-muted-foreground">
-                  {restaurantName} — uma experiência elegante em tons creme e vermelho, feita para partilhar.
+                <p className="mt-4 text-base sm:text-lg text-muted-foreground/90 max-w-xl leading-relaxed">
+                  {restaurantName} — uma experiência elegante em tons creme e vermelho, meticulosamente preparada para celebrar o amor.
                 </p>
               </div>
 
@@ -88,39 +88,43 @@ export default function PublicMenuPage() {
                 href="/menu-namorados.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative block w-full max-w-[180px] overflow-hidden rounded-2xl border border-card-border/70 bg-card shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-primary/20"
+                className="group relative block w-full max-w-[200px] overflow-hidden rounded-[2rem] border-2 border-primary/20 bg-card shadow-2xl transition-all duration-700 hover:-translate-y-2 hover:shadow-primary/30 hover:border-primary/40"
                 data-testid="link-menu-pdf"
               >
                 <img 
                   src={logoPng} 
                   alt="Menu Dia dos Namorados" 
-                  className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                    Ver PDF
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                  <div className="p-3 rounded-full bg-white/20 backdrop-blur-xl mb-2">
+                    <RiMagicFill className="h-6 w-6 text-white animate-pulse" />
+                  </div>
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">
+                    Explorar Menu
                   </span>
                 </div>
               </a>
             </div>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 md:justify-end">
-              <QrCodeDialog url={url} />
-
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <Button
-                variant="secondary"
+                variant="default"
+                size="lg"
                 onClick={() => {
                   const el = document.querySelector("#reserva");
                   el?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="rounded-2xl px-5 py-3 font-semibold hover:-translate-y-0.5 transition-all duration-300"
+                className="h-12 rounded-full px-8 font-bold text-base bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all duration-500 hover:-translate-y-1 active:scale-95"
                 data-testid="btn-scroll-reserva"
               >
-                <span className="inline-flex items-center gap-2">
-                  <RiArrowDownLine className="h-4 w-4" />
-                  Fazer reserva
-                </span>
+                <RiArrowDownLine className="mr-2 h-5 w-5 animate-bounce" />
+                Garantir minha mesa
               </Button>
+              
+              <div className="h-10 w-px bg-border/40 mx-2 hidden sm:block" />
+              
+              <QrCodeDialog url={url} />
             </div>
           </header>
 
@@ -221,45 +225,45 @@ export default function PublicMenuPage() {
 
               <div
                 id="reserva"
-                className="rounded-3xl border border-card-border/70 bg-card shadow-lg shadow-black/5 overflow-hidden"
+                className="group rounded-[2.5rem] border border-primary/10 bg-card/60 shadow-2xl shadow-black/5 overflow-hidden backdrop-blur-xl transition-all duration-500 hover:border-primary/30"
                 data-testid="reservation-card"
               >
-                <div className="p-6 sm:p-7">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="font-display text-2xl">Reservas</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        Garanta a sua mesa. Uma noite, dois corações, e um menu inesquecível.
-                      </p>
+                <div className="p-8 sm:p-10">
+                  <div className="flex flex-col gap-6">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                      <RiRestaurantFill className="h-7 w-7" />
                     </div>
-                    <div className="hidden sm:grid place-items-center h-11 w-11 rounded-2xl bg-primary/10 text-primary border border-primary/20">
-                      <RiRestaurantFill className="h-5 w-5" />
+                    <div>
+                      <h3 className="font-display text-3xl sm:text-4xl tracking-tight text-foreground">Reservas</h3>
+                      <p className="mt-3 text-base text-muted-foreground/80 leading-relaxed">
+                        Garanta a sua mesa. Uma noite, dois corações, e um menu verdadeiramente inesquecível.
+                      </p>
                     </div>
                   </div>
 
-                  <div className="mt-5 grid gap-3">
+                  <div className="mt-8 grid gap-4">
                     <a
                       href={whatsapp1 ? buildWhatsAppLink(whatsapp1, reservationMessage) : "#"}
                       target="_blank"
                       rel="noreferrer"
                       className={cn(
-                        "group rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm",
-                        "hover:-translate-y-0.5 hover:shadow-md hover:border-border transition-all duration-300 ease-out",
+                        "group/btn rounded-2xl border border-primary/5 bg-white/50 px-6 py-4 shadow-sm",
+                        "hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/20 hover:bg-white transition-all duration-500 ease-out",
                         !whatsapp1 && "pointer-events-none opacity-50",
                       )}
                       data-testid="whatsapp-1-link"
-                      onClick={(e) => {
-                        if (!whatsapp1) e.preventDefault();
-                      }}
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-muted-foreground">WhatsApp</p>
-                          <p className="truncate text-sm font-semibold text-foreground">{whatsapp1 ?? "—"}</p>
+                        <div className="flex items-center gap-4">
+                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover/btn:bg-primary">
+                            <RiWhatsappFill className="h-5 w-5 text-primary group-hover/btn:text-white" />
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">WhatsApp Principal</p>
+                            <p className="text-base font-bold text-foreground">{whatsapp1 ?? "—"}</p>
+                          </div>
                         </div>
-                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                          Abrir <RiMagicFill className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                        </span>
+                        <RiMagicFill className="h-5 w-5 text-primary opacity-0 -translate-x-2 transition-all duration-500 group-hover/btn:opacity-100 group-hover/btn:translate-x-0" />
                       </div>
                     </a>
 
@@ -268,51 +272,55 @@ export default function PublicMenuPage() {
                       target="_blank"
                       rel="noreferrer"
                       className={cn(
-                        "group rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-sm",
-                        "hover:-translate-y-0.5 hover:shadow-md hover:border-border transition-all duration-300 ease-out",
+                        "group/btn rounded-2xl border border-primary/5 bg-white/50 px-6 py-4 shadow-sm",
+                        "hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/20 hover:bg-white transition-all duration-500 ease-out",
                         !whatsapp2 && "pointer-events-none opacity-50",
                       )}
                       data-testid="whatsapp-2-link"
-                      onClick={(e) => {
-                        if (!whatsapp2) e.preventDefault();
-                      }}
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-muted-foreground">WhatsApp</p>
-                          <p className="truncate text-sm font-semibold text-foreground">{whatsapp2 ?? "—"}</p>
+                        <div className="flex items-center gap-4">
+                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover/btn:bg-primary">
+                            <RiWhatsappFill className="h-5 w-5 text-primary group-hover/btn:text-white" />
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">WhatsApp Secundário</p>
+                            <p className="text-base font-bold text-foreground">{whatsapp2 ?? "—"}</p>
+                          </div>
                         </div>
-                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                          Abrir <RiMagicFill className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                        </span>
+                        <RiMagicFill className="h-5 w-5 text-primary opacity-0 -translate-x-2 transition-all duration-500 group-hover/btn:opacity-100 group-hover/btn:translate-x-0" />
                       </div>
                     </a>
                   </div>
 
                   {footerNote ? (
-                    <div className="mt-5 rounded-2xl border border-border bg-background/60 p-4" data-testid="footer-note">
-                      <p className="text-xs leading-relaxed text-muted-foreground">{footerNote}</p>
+                    <div className="mt-8 rounded-2xl bg-primary/5 p-5 border border-primary/10" data-testid="footer-note">
+                      <p className="text-xs font-medium leading-relaxed text-primary/70 italic text-center">
+                        "{footerNote}"
+                      </p>
                     </div>
                   ) : null}
                 </div>
 
-                <div className="border-t border-border bg-gradient-to-r from-primary/10 via-transparent to-accent/10 p-5 sm:p-6">
-                  <div className="grid gap-3" data-testid="prices">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <p className="text-sm font-semibold text-foreground">Jantar Casal</p>
-                      <p className="text-sm font-bold text-primary" data-testid="price-couple">
-                        {coupleDinnerPrice.toLocaleString("pt-PT")} kz
-                      </p>
+                <div className="relative border-t border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 p-8">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                  <div className="grid gap-4" data-testid="prices">
+                    <div className="flex items-end justify-between gap-4">
+                      <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground/70">Jantar Casal</p>
+                      <div className="text-right">
+                        <p className="text-3xl font-black tracking-tighter text-primary" data-testid="price-couple">
+                          {coupleDinnerPrice.toLocaleString("pt-PT")} <span className="text-sm font-bold opacity-50">KZ</span>
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex items-baseline justify-between gap-4">
-                      <p className="text-sm font-semibold text-foreground">Com espumante</p>
-                      <p className="text-sm font-bold text-primary" data-testid="price-couple-sparkling">
-                        {coupleDinnerWithSparklingPrice.toLocaleString("pt-PT")} kz
-                      </p>
+                    <div className="flex items-end justify-between gap-4">
+                      <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground/70">Com Espumante</p>
+                      <div className="text-right">
+                        <p className="text-3xl font-black tracking-tighter text-primary" data-testid="price-couple-sparkling">
+                          {coupleDinnerWithSparklingPrice.toLocaleString("pt-PT")} <span className="text-sm font-bold opacity-50">KZ</span>
+                        </p>
+                      </div>
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground" data-testid="reservation-note">
-                      Faça sua reserva via WhatsApp.
-                    </p>
                   </div>
                 </div>
               </div>

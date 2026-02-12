@@ -15,41 +15,40 @@ export function SectionCard({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-3xl border bg-card shadow-lg shadow-black/5",
-        "border-card-border/70",
+        "relative overflow-hidden rounded-3xl border bg-card/40 shadow-sm backdrop-blur-sm",
+        "border-card-border/50 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20",
       )}
       data-testid={dataTestId}
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
           className={cn(
-            "absolute -top-24 -right-24 h-48 w-48 rounded-full blur-3xl opacity-30",
-            accent === "primary" ? "bg-primary/40" : "bg-accent/40",
+            "absolute -top-32 -right-32 h-64 w-64 rounded-full blur-[100px] opacity-20 transition-opacity duration-700 group-hover:opacity-30",
+            accent === "primary" ? "bg-primary" : "bg-accent",
           )}
         />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
 
-      <div className="relative p-5 sm:p-6 md:p-7">
-        <header className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="font-display text-xl sm:text-2xl text-foreground">{title}</h2>
-            <div className="mt-2 h-px w-20 bg-gradient-to-r from-primary/70 to-transparent" />
+      <div className="relative p-6 sm:p-8">
+        <header className="flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-foreground">{title}</h2>
+            <div className="h-1 w-12 rounded-full bg-gradient-to-r from-primary to-transparent opacity-60" />
           </div>
-          <div className="hidden sm:block text-xs font-medium text-muted-foreground">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1">
+          <div className="hidden sm:block">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary/80 backdrop-blur-md">
               <span
                 className={cn(
-                  "h-1.5 w-1.5 rounded-full",
+                  "h-1.5 w-1.5 rounded-full animate-pulse",
                   accent === "primary" ? "bg-primary" : "bg-accent",
                 )}
               />
-              Dia dos Namorados
+              Sabor & Amor
             </span>
           </div>
         </header>
 
-        <div className="mt-5">{children}</div>
+        <div className="mt-8">{children}</div>
       </div>
     </section>
   );
