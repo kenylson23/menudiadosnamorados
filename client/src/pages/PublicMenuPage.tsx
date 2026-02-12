@@ -54,10 +54,30 @@ export default function PublicMenuPage() {
 
   const reservationMessage = `Olá ${restaurantName}! Gostaria de fazer uma reserva para o Dia dos Namorados.`;
 
+  const [isOffline, setIsOffline] = React.useState(!navigator.onLine);
+
+  React.useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen mesh-bg grain">
       <div className="relative z-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+          {/* Offline Indicator */}
+          {isOffline && (
+            <div className="mb-6 flex items-center justify-center gap-2 rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm font-medium text-yellow-600 backdrop-blur animate-in fade-in slide-in-from-top-4">
+              <RiAlertFill className="h-4 w-4" />
+              Você está visualizando o menu em modo offline
+            </div>
+          )}
           {/* Header */}
           <header className="animate-float-in">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
