@@ -1,7 +1,18 @@
 import * as React from "react";
 import { Link } from "wouter";
 import { z } from "zod";
-import { Settings2, Plus, Pencil, Trash2, Save, ArrowLeft, Layers, ListOrdered, EyeOff, Eye } from "lucide-react";
+import { 
+  RiSettings4Fill, 
+  RiAddLine, 
+  RiPencilFill, 
+  RiDeleteBin6Fill, 
+  RiSave3Fill, 
+  RiArrowLeftLine, 
+  RiStackFill, 
+  RiListOrdered, 
+  RiEyeOffFill, 
+  RiEyeFill 
+} from "react-icons/ri";
 import { useToast } from "@/hooks/use-toast";
 import {
   useMenuMeta,
@@ -37,7 +48,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
             <div>
               <div className="flex items-center gap-3">
                 <div className="grid h-11 w-11 place-items-center rounded-2xl border border-card-border/70 bg-card shadow-sm">
-                  <Settings2 className="h-5 w-5 text-primary" />
+                  <RiSettings4Fill className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <h1 className="font-display text-3xl sm:text-4xl">Admin do Menu</h1>
@@ -57,7 +68,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
                 )}
                 data-testid="admin-back-link"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <RiArrowLeftLine className="h-4 w-4" />
                 Voltar ao público
               </Link>
             </div>
@@ -250,7 +261,7 @@ function MetaCard() {
               data-testid="btn-save-meta"
             >
               <span className="inline-flex items-center gap-2">
-                <Save className="h-4 w-4" />
+                <RiSave3Fill className="h-4 w-4" />
                 {updateMeta.isPending ? "A guardar…" : "Guardar alterações"}
               </span>
             </Button>
@@ -352,7 +363,7 @@ function SectionsCard() {
               data-testid="btn-open-create-section"
             >
               <span className="inline-flex items-center gap-2">
-                <Plus className="h-4 w-4" />
+                <RiAddLine className="h-4 w-4" />
                 Nova
               </span>
             </Button>
@@ -450,16 +461,16 @@ function SectionsCard() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <Layers className="h-4 w-4 text-primary" />
+                        <RiStackFill className="h-4 w-4 text-primary" />
                         <p className="truncate text-sm font-semibold">{s.name}</p>
                       </div>
                       <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                         <span className="inline-flex items-center gap-1">
-                          <ListOrdered className="h-3.5 w-3.5" /> {s.sortOrder}
+                          <RiListOrdered className="h-3.5 w-3.5" /> {s.sortOrder}
                         </span>
                         <span className="text-muted-foreground/70">•</span>
                         <span className={cn("inline-flex items-center gap-1", s.isActive ? "text-foreground" : "text-muted-foreground")}>
-                          {s.isActive ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
+                          {s.isActive ? <RiEyeFill className="h-3.5 w-3.5" /> : <RiEyeOffFill className="h-3.5 w-3.5" />}
                           {s.isActive ? "Ativa" : "Oculta"}
                         </span>
                       </div>
@@ -472,7 +483,7 @@ function SectionsCard() {
                         onClick={() => openEdit(s)}
                         data-testid={`btn-edit-section-${s.id}`}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <RiPencilFill className="h-4 w-4" />
                       </Button>
 
                       <AlertDialog>
@@ -483,7 +494,7 @@ function SectionsCard() {
                             onClick={() => {}}
                             data-testid={`btn-delete-section-${s.id}`}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <RiDeleteBin6Fill className="h-4 w-4" />
                           </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="rounded-3xl">

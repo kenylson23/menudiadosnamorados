@@ -1,5 +1,13 @@
 import * as React from "react";
-import { Heart, Phone, Sparkles, UtensilsCrossed, AlertTriangle, RefreshCw } from "lucide-react";
+import { 
+  RiHeartFill, 
+  RiWhatsappFill, 
+  RiMagicFill, 
+  RiRestaurantFill, 
+  RiAlertFill, 
+  RiRefreshLine,
+  RiArrowDownLine
+} from "react-icons/ri";
 import { usePublicMenu } from "@/hooks/use-menu";
 import { QrCodeDialog } from "@/components/QrCodeDialog";
 import { SectionCard } from "@/components/SectionCard";
@@ -54,7 +62,7 @@ export default function PublicMenuPage() {
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3 py-1.5 shadow-sm backdrop-blur">
-                  <Heart className="h-4 w-4 text-primary" />
+                  <RiHeartFill className="h-4 w-4 text-primary" />
                   <span className="text-xs font-semibold text-muted-foreground">
                     Especial Romântico
                   </span>
@@ -88,7 +96,7 @@ export default function PublicMenuPage() {
                   data-testid="btn-scroll-reserva"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
+                    <RiArrowDownLine className="h-4 w-4" />
                     Fazer reserva
                   </span>
                 </Button>
@@ -113,7 +121,7 @@ export default function PublicMenuPage() {
                 <div className="rounded-3xl border border-destructive/30 bg-card p-6 sm:p-7 shadow-lg shadow-black/5 animate-float-in">
                   <div className="flex items-start gap-3">
                     <div className="grid h-10 w-10 place-items-center rounded-2xl bg-destructive/10 text-destructive">
-                      <AlertTriangle className="h-5 w-5" />
+                      <RiAlertFill className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">
                       <h2 className="font-display text-xl">Não foi possível carregar o menu</h2>
@@ -127,7 +135,7 @@ export default function PublicMenuPage() {
                           data-testid="btn-retry-menu"
                         >
                           <span className="inline-flex items-center gap-2">
-                            <RefreshCw className={cn("h-4 w-4", isFetching && "animate-spin")} />
+                            <RiRefreshLine className={cn("h-4 w-4", isFetching && "animate-spin")} />
                             Recarregar
                           </span>
                         </Button>
@@ -205,7 +213,7 @@ export default function PublicMenuPage() {
                       </p>
                     </div>
                     <div className="hidden sm:grid place-items-center h-11 w-11 rounded-2xl bg-primary/10 text-primary border border-primary/20">
-                      <UtensilsCrossed className="h-5 w-5" />
+                      <RiRestaurantFill className="h-5 w-5" />
                     </div>
                   </div>
 
@@ -230,7 +238,7 @@ export default function PublicMenuPage() {
                           <p className="truncate text-sm font-semibold text-foreground">{whatsapp1 ?? "—"}</p>
                         </div>
                         <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                          Abrir <Sparkles className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                          Abrir <RiMagicFill className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                         </span>
                       </div>
                     </a>
@@ -255,7 +263,7 @@ export default function PublicMenuPage() {
                           <p className="truncate text-sm font-semibold text-foreground">{whatsapp2 ?? "—"}</p>
                         </div>
                         <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                          Abrir <Sparkles className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                          Abrir <RiMagicFill className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                         </span>
                       </div>
                     </a>
