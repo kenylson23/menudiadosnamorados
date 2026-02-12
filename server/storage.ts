@@ -1,45 +1,37 @@
-import { asc, eq } from "drizzle-orm";
 import {
-  menuItems,
-  menuMeta,
-  menuSections,
-  type InsertMenuItem,
-  type InsertMenuMeta,
-  type InsertMenuSection,
   type MenuItem,
   type MenuMeta,
   type MenuSection,
   type PublicMenuResponse,
   type UpdateMenuMetaRequest,
+  type InsertMenuItem,
+  type InsertMenuSection,
 } from "@shared/schema";
-import { db } from "./db";
 
 export interface IStorage {
   getPublicMenu(): Promise<PublicMenuResponse>;
-
   getMenuMeta(): Promise<MenuMeta>;
   updateMenuMeta(updates: UpdateMenuMetaRequest): Promise<MenuMeta>;
-
   listMenuSections(): Promise<MenuSection[]>;
   createMenuSection(input: InsertMenuSection): Promise<MenuSection>;
-  updateMenuSection(
-    id: number,
-    updates: Partial<InsertMenuSection>,
-  ): Promise<MenuSection | undefined>;
+  updateMenuSection(id: number, updates: Partial<InsertMenuSection>): Promise<MenuSection | undefined>;
   deleteMenuSection(id: number): Promise<boolean>;
-
   listMenuItems(): Promise<MenuItem[]>;
   createMenuItem(input: InsertMenuItem): Promise<MenuItem>;
   updateMenuItem(id: number, updates: Partial<InsertMenuItem>): Promise<MenuItem | undefined>;
   deleteMenuItem(id: number): Promise<boolean>;
 }
 
-export class DatabaseStorage implements IStorage {
-  async getMenuMeta(): Promise<MenuMeta> {
-    const existing = await db.select().from(menuMeta).limit(1);
-    if (existing[0]) return existing[0];
+export class MemStorage implements IStorage {
+  private meta: MenuMeta;
+  private sections: MenuSection[];
+  private items: MenuItem[];
+  private currentId: number;
 
-    const defaults: InsertMenuMeta = {
+  constructor() {
+    this.currentId = 1;
+    this.meta = {
+      id: this.currentId++,
       restaurantName: "Las Tortillas",
       menuTitle: "Menu Dia dos Namorados",
       footerNote: "Faça sua reserva via WhatsApp: 927759068 / 931879967",
@@ -49,110 +41,138 @@ export class DatabaseStorage implements IStorage {
       coupleDinnerWithSparklingPriceKz: 80000,
     };
 
-    const [created] = await db.insert(menuMeta).values(defaults).returning();
-    return created;
+    const sectionNames = ["ENTRADA", "PRATO PRINCIPAL", "SOBREMESA"];
+    this.sections = sectionNames.map((name, idx) => ({
+      id: this.currentId++,
+      name,
+      sortOrder: (idx + 1) * 10,
+      isActive: true,
+    }));
+
+    const entradaItems = [
+      "Amor de abacate com chips do coração",
+      "Taquitos de carne desfiada",
+      "Asinhas a escolha da senhora",
+      "Salada mexicana de Quinoa",
+      "Ceaser salad",
+    ];
+
+    const principalItems = [
+      "Risotto de Gambas",
+      "Lombo de garoupa c/ puré & horta do chef",
+      "Pollo imperial c/ Arroz mexicano",
+      "Mexican steak fries",
+      "Side: Arroz, feijão, pico de gallo",
+    ];
+
+    const sobremesaItems = [
+      "Churros",
+      "Tentação",
+      "Cheesecake de Morango",
+      "Suspiros do Amor",
+    ];
+
+    this.items = [];
+    
+    // Helper to add items
+    const addItems = (names: string[], sectionId: number) => {
+      names.forEach((name, idx) => {
+        this.items.push({
+          id: this.currentId++,
+          sectionId,
+          name,
+          description: null,
+          priceKz: null,
+          sortOrder: (idx + 1) * 10,
+          isActive: true,
+        });
+      });
+    };
+
+    addItems(entradaItems, this.sections[0].id);
+    addItems(principalItems, this.sections[1].id);
+    addItems(sobremesaItems, this.sections[2].id);
+  }
+
+  async getMenuMeta(): Promise<MenuMeta> {
+    return this.meta;
   }
 
   async updateMenuMeta(updates: UpdateMenuMetaRequest): Promise<MenuMeta> {
-    const meta = await this.getMenuMeta();
-    const [updated] = await db
-      .update(menuMeta)
-      .set({ ...updates })
-      .where(eq(menuMeta.id, meta.id))
-      .returning();
-    return updated;
+    this.meta = { ...this.meta, ...updates };
+    return this.meta;
   }
 
   async listMenuSections(): Promise<MenuSection[]> {
-    return await db
-      .select()
-      .from(menuSections)
-      .orderBy(asc(menuSections.sortOrder), asc(menuSections.id));
+    return [...this.sections].sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id);
   }
 
   async createMenuSection(input: InsertMenuSection): Promise<MenuSection> {
-    const [created] = await db.insert(menuSections).values(input).returning();
-    return created;
+    const section: MenuSection = {
+      ...input,
+      id: this.currentId++,
+    };
+    this.sections.push(section);
+    return section;
   }
 
-  async updateMenuSection(
-    id: number,
-    updates: Partial<InsertMenuSection>,
-  ): Promise<MenuSection | undefined> {
-    const [updated] = await db
-      .update(menuSections)
-      .set(updates)
-      .where(eq(menuSections.id, id))
-      .returning();
-    return updated;
+  async updateMenuSection(id: number, updates: Partial<InsertMenuSection>): Promise<MenuSection | undefined> {
+    const index = this.sections.findIndex(s => s.id === id);
+    if (index === -1) return undefined;
+    this.sections[index] = { ...this.sections[index], ...updates };
+    return this.sections[index];
   }
 
   async deleteMenuSection(id: number): Promise<boolean> {
-    const existingItems = await db
-      .select({ id: menuItems.id })
-      .from(menuItems)
-      .where(eq(menuItems.sectionId, id))
-      .limit(1);
-
-    if (existingItems.length > 0) {
-      return false;
-    }
-
-    const deleted = await db
-      .delete(menuSections)
-      .where(eq(menuSections.id, id))
-      .returning({ id: menuSections.id });
-
-    return deleted.length > 0;
+    const hasItems = this.items.some(i => i.sectionId === id);
+    if (hasItems) return false;
+    const index = this.sections.findIndex(s => s.id === id);
+    if (index === -1) return false;
+    this.sections.splice(index, 1);
+    return true;
   }
 
   async listMenuItems(): Promise<MenuItem[]> {
-    return await db
-      .select()
-      .from(menuItems)
-      .orderBy(asc(menuItems.sectionId), asc(menuItems.sortOrder), asc(menuItems.id));
+    return [...this.items].sort((a, b) => a.sectionId - b.sectionId || a.sortOrder - b.sortOrder || a.id - b.id);
   }
 
   async createMenuItem(input: InsertMenuItem): Promise<MenuItem> {
-    const [created] = await db.insert(menuItems).values(input).returning();
-    return created;
+    const item: MenuItem = {
+      ...input,
+      id: this.currentId++,
+    };
+    this.items.push(item);
+    return item;
   }
 
-  async updateMenuItem(
-    id: number,
-    updates: Partial<InsertMenuItem>,
-  ): Promise<MenuItem | undefined> {
-    const [updated] = await db
-      .update(menuItems)
-      .set(updates)
-      .where(eq(menuItems.id, id))
-      .returning();
-    return updated;
+  async updateMenuItem(id: number, updates: Partial<InsertMenuItem>): Promise<MenuItem | undefined> {
+    const index = this.items.findIndex(i => i.id === id);
+    if (index === -1) return undefined;
+    this.items[index] = { ...this.items[index], ...updates };
+    return this.items[index];
   }
 
   async deleteMenuItem(id: number): Promise<boolean> {
-    const deleted = await db
-      .delete(menuItems)
-      .where(eq(menuItems.id, id))
-      .returning({ id: menuItems.id });
-    return deleted.length > 0;
+    const index = this.items.findIndex(i => i.id === id);
+    if (index === -1) return false;
+    this.items.splice(index, 1);
+    return true;
   }
 
   async getPublicMenu(): Promise<PublicMenuResponse> {
-    const meta = await this.getMenuMeta();
-    const sections = (await this.listMenuSections()).filter((s) => s.isActive);
-    const items = (await this.listMenuItems()).filter((i) => i.isActive);
+    const sections = this.sections.filter(s => s.isActive).sort((a, b) => a.sortOrder - b.sortOrder);
+    const items = this.items.filter(i => i.isActive);
 
     return {
-      meta,
-      sections: sections.map((section) => ({
+      meta: this.meta,
+      sections: sections.map(section => ({
         section,
         items: items
-          .filter((it) => it.sectionId === section.id)
-          .sort((a, b) => (a.sortOrder - b.sortOrder) || (a.id - b.id)),
+          .filter(it => it.sectionId === section.id)
+          .sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id),
       })),
     };
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new MemStorage();

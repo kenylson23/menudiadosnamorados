@@ -4,91 +4,10 @@ import { z } from "zod";
 import { api } from "@shared/routes";
 import { storage } from "./storage";
 
-async function seedMenuIfEmpty() {
-  const sections = await storage.listMenuSections();
-  if (sections.length > 0) return;
-
-  const entrada = await storage.createMenuSection({
-    name: "ENTRADA",
-    sortOrder: 10,
-    isActive: true,
-  });
-  const principal = await storage.createMenuSection({
-    name: "PRATO PRINCIPAL",
-    sortOrder: 20,
-    isActive: true,
-  });
-  const sobremesa = await storage.createMenuSection({
-    name: "SOBREMESA",
-    sortOrder: 30,
-    isActive: true,
-  });
-
-  const entradaItems = [
-    "Amor de abacate com chips do coração",
-    "Taquitos de carne desfiada",
-    "Asinhas a escolha da senhora",
-    "Salada mexicana de Quinoa",
-    "Ceaser salad",
-  ];
-
-  const principalItems = [
-    "Risotto de Gambas",
-    "Lombo de garoupa c/ puré & horta do chef",
-    "Pollo imperial c/ Arroz mexicano",
-    "Mexican steak fries",
-    "Side: Arroz, feijão, pico de gallo",
-  ];
-
-  const sobremesaItems = [
-    "Churros",
-    "Tentação",
-    "Cheesecake de Morango",
-    "Suspiros do Amor",
-  ];
-
-  for (const [idx, name] of entradaItems.entries()) {
-    await storage.createMenuItem({
-      sectionId: entrada.id,
-      name,
-      description: null,
-      priceKz: null,
-      sortOrder: (idx + 1) * 10,
-      isActive: true,
-    });
-  }
-
-  for (const [idx, name] of principalItems.entries()) {
-    await storage.createMenuItem({
-      sectionId: principal.id,
-      name,
-      description: null,
-      priceKz: null,
-      sortOrder: (idx + 1) * 10,
-      isActive: true,
-    });
-  }
-
-  for (const [idx, name] of sobremesaItems.entries()) {
-    await storage.createMenuItem({
-      sectionId: sobremesa.id,
-      name,
-      description: null,
-      priceKz: null,
-      sortOrder: (idx + 1) * 10,
-      isActive: true,
-    });
-  }
-
-  await storage.getMenuMeta();
-}
-
 export async function registerRoutes(
   httpServer: Server,
   app: Express,
 ): Promise<Server> {
-  await seedMenuIfEmpty();
-
   app.get(api.publicMenu.get.path, async (_req, res) => {
     const menu = await storage.getPublicMenu();
     res.json(menu);
