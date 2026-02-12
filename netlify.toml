@@ -9,9 +9,3 @@
 
 [build.environment]
   NODE_VERSION = "20"
-
-[http]
-  [http.headers]
-    for = "/*"
-    [http.headers.values]
-      X-Content-Type-Options = "nosniff"
