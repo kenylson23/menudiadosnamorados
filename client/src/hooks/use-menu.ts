@@ -30,15 +30,20 @@ export function usePublicMenu() {
     queryFn: async () => {
       try {
         const res = await fetch(api.publicMenu.get.path, { credentials: "include" });
-        if (!res.ok) throw new Error("Falha ao carregar o menu público.");
+        if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
         const json = await res.json();
         return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get");
       } catch (err) {
         console.warn("API failed, falling back to static menu-data.json", err);
-        const res = await fetch("/menu-data.json");
-        if (!res.ok) throw new Error("Falha ao carregar o menu offline.");
-        const json = await res.json();
-        return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get");
+        try {
+          const res = await fetch("/menu-data.json");
+          if (!res.ok) throw new Error(`Fallback responded with status: ${res.status}`);
+          const json = await res.json();
+          return parseWithLogging(api.publicMenu.get.responses[200], json, "publicMenu.get");
+        } catch (fallbackErr) {
+          console.error("Critical: Fallback also failed", fallbackErr);
+          throw fallbackErr;
+        }
       }
     },
   });
