@@ -91,19 +91,20 @@ export function QrCodeDialog({
                 </Button>
               </div>
 
-              <div className="mt-6 grid place-items-center">
-                <div className="relative p-4 bg-white rounded-[2.5rem] shadow-2xl border border-border/50" ref={canvasRef}>
+              <div className="mt-6 flex justify-center">
+                <div className="relative p-3 sm:p-4 bg-white rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-border/50 w-full max-w-[280px] aspect-square flex items-center justify-center" ref={canvasRef}>
                   <QRCodeCanvas
                     value={url}
-                    size={280}
+                    size={256}
+                    style={{ width: '100%', height: '100%' }}
                     level="H"
                     includeMargin={false}
                     imageSettings={{
                       src: logoImg,
                       x: undefined,
                       y: undefined,
-                      height: 60,
-                      width: 60,
+                      height: 50,
+                      width: 50,
                       excavate: true,
                     }}
                   />
