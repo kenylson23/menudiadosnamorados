@@ -63,36 +63,36 @@ export function QrCodeDialog({
       </DialogTrigger>
 
       <DialogContent className="max-w-[95vw] sm:max-w-lg rounded-3xl border-card-border/70 bg-card p-0 shadow-2xl overflow-hidden">
-        <div className="p-6 sm:p-7">
-          <DialogHeader>
-            <DialogTitle className="font-display text-2xl">QR Code Personalizado</DialogTitle>
+        <div className="p-4 sm:p-7">
+          <DialogHeader className="px-2">
+            <DialogTitle className="font-display text-xl sm:text-2xl">QR Code Personalizado</DialogTitle>
           </DialogHeader>
 
-          <div className="mt-4 grid gap-5">
-            <div className="glass rounded-3xl p-4 shadow-md bg-white/50 backdrop-blur-sm border border-white/20">
-              <div className="flex items-center justify-between gap-3 px-1">
-                <div className="min-w-0">
+          <div className="mt-4 flex flex-col gap-4">
+            <div className="glass rounded-3xl p-3 sm:p-4 shadow-md bg-white/50 backdrop-blur-sm border border-white/20">
+              <div className="flex items-center justify-between gap-2 px-1">
+                <div className="min-w-0 flex-1">
                   <p className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground/60">Destino</p>
-                  <p className="truncate text-sm font-medium text-foreground" data-testid="qr-url">
+                  <p className="truncate text-xs sm:text-sm font-medium text-foreground" data-testid="qr-url">
                     {url}
                   </p>
                 </div>
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="rounded-xl h-8 px-3"
+                  className="rounded-xl h-7 sm:h-8 px-2 sm:px-3 shrink-0"
                   onClick={onCopy}
                   data-testid="btn-copy-link"
                 >
-                  <span className="inline-flex items-center gap-1.5 text-xs">
-                    <RiLink className="h-3.5 w-3.5" />
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs">
+                    <RiLink className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     Copiar
                   </span>
                 </Button>
               </div>
 
-              <div className="mt-6 flex justify-center">
-                <div className="relative p-3 sm:p-4 bg-white rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-border/50 w-full max-w-[280px] aspect-square flex items-center justify-center" ref={canvasRef}>
+              <div className="mt-4 flex justify-center">
+                <div className="relative p-2 sm:p-4 bg-white rounded-2xl sm:rounded-[2.5rem] shadow-xl border border-border/50 w-full max-w-[240px] sm:max-w-[280px] aspect-square flex items-center justify-center" ref={canvasRef}>
                   <QRCodeCanvas
                     value={url}
                     size={256}
@@ -103,27 +103,27 @@ export function QrCodeDialog({
                       src: logoImg,
                       x: undefined,
                       y: undefined,
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       excavate: true,
                     }}
                   />
                 </div>
               </div>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <Button
-                  className="flex-1 rounded-2xl h-12 font-bold bg-primary hover:bg-primary/90"
+                  className="flex-1 rounded-xl sm:rounded-2xl h-10 sm:h-12 font-bold bg-primary hover:bg-primary/90 text-sm sm:text-base"
                   onClick={onDownload}
                   data-testid="btn-download-qr"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <RiDownload2Fill className="h-5 w-5" />
+                    <RiDownload2Fill className="h-4 w-4 sm:h-5 sm:w-5" />
                     Baixar QR Code
                   </span>
                 </Button>
                 <Button
-                  className="rounded-2xl h-12 px-6"
+                  className="rounded-xl sm:rounded-2xl h-10 sm:h-12 px-4 sm:px-6 text-sm sm:text-base"
                   variant="secondary"
                   onClick={() => setOpen(false)}
                   data-testid="btn-close-qr"
@@ -133,7 +133,7 @@ export function QrCodeDialog({
               </div>
             </div>
 
-            <p className="text-center text-[11px] leading-relaxed text-muted-foreground px-4">
+            <p className="text-center text-[10px] sm:text-[11px] leading-relaxed text-muted-foreground px-2">
               Aponte a câmara para aceder ao menu digital do <span className="font-bold text-foreground">Las Tortillas</span>.
             </p>
           </div>
