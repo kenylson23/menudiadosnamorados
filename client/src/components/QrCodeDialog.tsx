@@ -62,14 +62,14 @@ export function QrCodeDialog({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-[2.5rem] border-none bg-white p-0 shadow-2xl overflow-hidden overflow-y-auto max-h-[90vh]">
-        <div className="p-4 sm:p-8">
+      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-[2.5rem] border-none bg-white p-0 shadow-2xl overflow-y-auto max-h-[95vh]">
+        <div className="p-4 sm:p-6">
           <DialogHeader className="px-2 mb-2">
             <DialogTitle className="font-display text-xl sm:text-2xl text-center text-[#2D241E]">QR Code Personalizado</DialogTitle>
           </DialogHeader>
 
-          <div className="flex flex-col gap-4">
-            <div className="rounded-[2rem] p-4 sm:p-6 bg-[#FDFCFB] border border-[#F1ECE7] shadow-inner">
+          <div className="flex flex-col gap-3">
+            <div className="rounded-[2rem] p-4 sm:p-5 bg-[#FDFCFB] border border-[#F1ECE7] shadow-inner">
               <div className="flex flex-col gap-2 px-1">
                 <p className="text-[10px] uppercase tracking-widest font-bold text-[#A39589]">Destino</p>
                 <div className="flex items-center gap-2">
@@ -88,8 +88,8 @@ export function QrCodeDialog({
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-center">
-                <div className="relative p-4 bg-white rounded-[2.5rem] shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-[#F1ECE7] w-full max-w-[240px] aspect-square flex items-center justify-center group transition-transform duration-500 hover:scale-[1.02]" ref={canvasRef}>
+              <div className="mt-4 flex justify-center">
+                <div className="relative p-4 bg-white rounded-[2.5rem] shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-[#F1ECE7] w-full max-w-[200px] sm:max-w-[240px] aspect-square flex items-center justify-center group transition-transform duration-500 hover:scale-[1.02]" ref={canvasRef}>
                   <QRCodeCanvas
                     value={url}
                     size={512}
@@ -100,15 +100,15 @@ export function QrCodeDialog({
                       src: logoImg,
                       x: undefined,
                       y: undefined,
-                      height: 48,
-                      width: 48,
+                      height: 40,
+                      width: 40,
                       excavate: true,
                     }}
                   />
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-6">
                 <Button
                   className="w-full rounded-2xl h-12 font-bold bg-[#C41E3A] hover:bg-[#A01830] text-base shadow-lg shadow-[#C41E3A]/20 transition-all duration-300 active:scale-[0.98]"
                   onClick={onDownload}
