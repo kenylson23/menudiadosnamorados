@@ -1,7 +1,170 @@
 {
   "meta": {
-    "title": "Menu",
-    "description": "Seu cardápio digital"
+    "id": 1,
+    "restaurantName": "Las Tortillas",
+    "menuTitle": "Menu Dia dos Namorados",
+    "footerNote": "Faça sua reserva via WhatsApp: 927759068 / 931879967",
+    "whatsapp1": "927759068",
+    "whatsapp2": "931879967",
+    "coupleDinnerPriceKz": 65000,
+    "coupleDinnerWithSparklingPriceKz": 80000
   },
-  "sections": []
+  "sections": [
+    {
+      "section": {
+        "id": 2,
+        "name": "ENTRADA",
+        "sortOrder": 10,
+        "isActive": true
+      },
+      "items": [
+        {
+          "id": 5,
+          "sectionId": 2,
+          "name": "Amor de abacate com chips do coração",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 10,
+          "isActive": true
+        },
+        {
+          "id": 6,
+          "sectionId": 2,
+          "name": "Taquitos de carne desfiada",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 20,
+          "isActive": true
+        },
+        {
+          "id": 7,
+          "sectionId": 2,
+          "name": "Asinhas a escolha da senhora",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 30,
+          "isActive": true
+        },
+        {
+          "id": 8,
+          "sectionId": 2,
+          "name": "Salada mexicana de Quinoa",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 40,
+          "isActive": true
+        },
+        {
+          "id": 9,
+          "sectionId": 2,
+          "name": "Ceaser salad",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 50,
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "section": {
+        "id": 3,
+        "name": "PRATO PRINCIPAL",
+        "sortOrder": 20,
+        "isActive": true
+      },
+      "items": [
+        {
+          "id": 10,
+          "sectionId": 3,
+          "name": "Risotto de Gambas",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 10,
+          "isActive": true
+        },
+        {
+          "id": 11,
+          "sectionId": 3,
+          "name": "Lombo de garoupa c/ puré & horta do chef",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 20,
+          "isActive": true
+        },
+        {
+          "id": 12,
+          "sectionId": 3,
+          "name": "Pollo imperial c/ Arroz mexicano",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 30,
+          "isActive": true
+        },
+        {
+          "id": 13,
+          "sectionId": 3,
+          "name": "Mexican steak fries",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 40,
+          "isActive": true
+        },
+        {
+          "id": 14,
+          "sectionId": 3,
+          "name": "Side: Arroz, feijão, pico de gallo",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 50,
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "section": {
+        "id": 4,
+        "name": "SOBREMESA",
+        "sortOrder": 30,
+        "isActive": true
+      },
+      "items": [
+        {
+          "id": 15,
+          "sectionId": 4,
+          "name": "Churros",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 10,
+          "isActive": true
+        },
+        {
+          "id": 16,
+          "sectionId": 4,
+          "name": "Tentação",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 20,
+          "isActive": true
+        },
+        {
+          "id": 17,
+          "sectionId": 4,
+          "name": "Cheesecake de Morango",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 30,
+          "isActive": true
+        },
+        {
+          "id": 18,
+          "sectionId": 4,
+          "name": "Suspiros do Amor",
+          "description": null,
+          "priceKz": null,
+          "sortOrder": 40,
+          "isActive": true
+        }
+      ]
+    }
+  ]
 }

@@ -59,6 +59,12 @@ async function buildAll() {
     external: externals,
     logLevel: "info",
   });
+
+  console.log("Generating menu-data.json...");
+  const { execSync } = await import("child_process");
+  execSync("npx tsx script/generate-menu-data.ts", { stdio: "inherit" });
+
+  console.log("Build complete");
 }
 
 buildAll().catch((err) => {
