@@ -62,34 +62,34 @@ export function QrCodeDialog({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-[2.5rem] border-none bg-white p-0 shadow-2xl overflow-y-auto max-h-[95vh]">
-        <div className="p-4 sm:p-6">
-          <DialogHeader className="px-2 mb-2">
-            <DialogTitle className="font-display text-xl sm:text-2xl text-center text-[#2D241E]">QR Code Personalizado</DialogTitle>
+      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-[2.5rem] border-none bg-white p-0 shadow-2xl overflow-hidden max-h-[98vh]">
+        <div className="p-3 sm:p-6 h-full flex flex-col">
+          <DialogHeader className="px-2 mb-1 shrink-0">
+            <DialogTitle className="font-display text-lg sm:text-2xl text-center text-[#2D241E]">QR Code Personalizado</DialogTitle>
           </DialogHeader>
 
-          <div className="flex flex-col gap-3">
-            <div className="rounded-[2rem] p-4 sm:p-5 bg-[#FDFCFB] border border-[#F1ECE7] shadow-inner">
-              <div className="flex flex-col gap-2 px-1">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-[#A39589]">Destino</p>
+          <div className="flex flex-col gap-2 overflow-hidden">
+            <div className="rounded-[2rem] p-3 sm:p-5 bg-[#FDFCFB] border border-[#F1ECE7] shadow-inner overflow-hidden flex flex-col">
+              <div className="flex flex-col gap-1 px-1 shrink-0">
+                <p className="text-[9px] uppercase tracking-widest font-bold text-[#A39589]">Destino</p>
                 <div className="flex items-center gap-2">
-                  <p className="flex-1 truncate text-xs font-medium text-[#4A3F35] bg-white px-3 py-2 rounded-xl border border-[#EEE6DE]" data-testid="qr-url">
+                  <p className="flex-1 truncate text-[11px] font-medium text-[#4A3F35] bg-white px-3 py-1.5 rounded-xl border border-[#EEE6DE]" data-testid="qr-url">
                     {url}
                   </p>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="rounded-xl h-9 px-2 shrink-0 hover:bg-[#F5F1EE]"
+                    className="rounded-xl h-8 px-2 shrink-0 hover:bg-[#F5F1EE]"
                     onClick={onCopy}
                     data-testid="btn-copy-link"
                   >
-                    <RiLink className="h-4 w-4 text-[#8B7E74]" />
+                    <RiLink className="h-3.5 w-3.5 text-[#8B7E74]" />
                   </Button>
                 </div>
               </div>
 
-              <div className="mt-4 flex justify-center">
-                <div className="relative p-4 bg-white rounded-[2.5rem] shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-[#F1ECE7] w-full max-w-[200px] sm:max-w-[240px] aspect-square flex items-center justify-center group transition-transform duration-500 hover:scale-[1.02]" ref={canvasRef}>
+              <div className="mt-3 flex justify-center shrink min-h-0">
+                <div className="relative p-3 bg-white rounded-[2rem] shadow-[0_10px_25px_rgba(0,0,0,0.06)] border border-[#F1ECE7] w-full max-w-[180px] sm:max-w-[220px] aspect-square flex items-center justify-center group transition-transform duration-500 hover:scale-[1.02]" ref={canvasRef}>
                   <QRCodeCanvas
                     value={url}
                     size={512}
@@ -100,29 +100,29 @@ export function QrCodeDialog({
                       src: logoImg,
                       x: undefined,
                       y: undefined,
-                      height: 40,
-                      width: 40,
+                      height: 32,
+                      width: 32,
                       excavate: true,
                     }}
                   />
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 shrink-0">
                 <Button
-                  className="w-full rounded-2xl h-12 font-bold bg-[#C41E3A] hover:bg-[#A01830] text-base shadow-lg shadow-[#C41E3A]/20 transition-all duration-300 active:scale-[0.98]"
+                  className="w-full rounded-2xl h-10 sm:h-12 font-bold bg-[#C41E3A] hover:bg-[#A01830] text-sm sm:text-base shadow-lg shadow-[#C41E3A]/20 transition-all duration-300 active:scale-[0.98]"
                   onClick={onDownload}
                   data-testid="btn-download-qr"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <RiDownload2Fill className="h-5 w-5" />
+                    <RiDownload2Fill className="h-4 w-4 sm:h-5 sm:w-5" />
                     Baixar QR Code
                   </span>
                 </Button>
               </div>
             </div>
 
-            <p className="text-center text-[10px] sm:text-xs leading-relaxed text-[#8B7E74] px-4">
+            <p className="text-center text-[9px] sm:text-xs leading-tight text-[#8B7E74] px-4 shrink-0">
               Aponte a câmara para aceder ao menu digital do <span className="font-bold text-[#2D241E]">Las Tortillas</span>.
             </p>
           </div>
