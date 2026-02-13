@@ -9,6 +9,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  VITE_BASE = "/"
 
 [[headers]]
   for = "/*"
