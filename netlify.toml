@@ -9,9 +9,3 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  VITE_BASE = "/"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
